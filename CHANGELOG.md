@@ -90,6 +90,8 @@ Shipping methods can be removed by the user after it has been assigned to a chec
 - Introduce `Saleor-Schema-Version` HTTP header in app manifest fetching and app installation handshake requests. - #13075 by @przlada
 - Add `SHOP_METADATA_UPDATED` webhook - #13364, #13388 by @maarcingebala
   - Called when metadata is changed for the Shop object via the generic metadata API or the `shopSettingsUpdate` mutation.
+- Add `ACCOUNT_CONFIRMED` webhook - #13471, by @Air-t
+  - Called when user confirm an account with `confirmAccount` mutation.
 
 ### Other changes
 - Add possibility to log without confirming email - #13059 by @kadewu

@@ -179,6 +179,28 @@ class WebhookPlugin(BasePlugin):
                 self.requestor,
             )
 
+    def _trigger_account_confirmed_event(self, event_type, user):
+        if webhooks := get_webhooks_for_event(event_type):
+            raw_payload = {
+                "id": graphene.Node.to_global_id("User", user.id),
+            }
+            data = {"user": user}
+            trigger_webhooks_async(
+                self._serialize_payload(raw_payload),
+                event_type,
+                webhooks,
+                data,
+                self.requestor,
+            )
+
+    def account_confirmed(self, user: "User", previous_value: None) -> None:
+        if not self.active:
+            return previous_value
+        self._trigger_account_confirmed_event(
+            WebhookEventAsyncType.ACCOUNT_CONFIRMED,
+            user,
+        )
+
     def account_confirmation_requested(
         self,
         user: "User",
